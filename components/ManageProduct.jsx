@@ -51,7 +51,6 @@ export default function ManageInstalment({ data }) {
       }
     });
   }
-console.log(data);
   //create columns for data grid
   const columns = React.useMemo(
     () => [

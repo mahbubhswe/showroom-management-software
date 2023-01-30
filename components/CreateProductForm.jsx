@@ -1,6 +1,5 @@
 import {
   Button,
-  Paper,
   Stack,
   TextField,
   Typography,
