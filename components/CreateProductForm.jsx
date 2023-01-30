@@ -179,7 +179,7 @@ export default function CreateStudentForm({ data }) {
             color="yallo"
             size="small"
           >
-            Save Student
+            Save Product
           </Button>
         </div>
       </Stack>
