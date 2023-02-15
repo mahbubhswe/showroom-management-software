@@ -9,10 +9,8 @@ import { useLocalStorage } from "@rehooks/local-storage";
 import axios from "axios";
 import Swal from "sweetalert2";
 import CreateFormButtonSpacer from "./CreateFormButtonSpacer";
-export default function SetupShopForm({ data }) {
+export default function SetupShopForm() {
   const [open, setOpen] = useState(false);
-  const [shopName, setShopName] = useState(data ? data.shopName : null);
-  const [currency, setCurrency] = useState(data ? data.currency : null);
   const [userInfo] = useLocalStorage("userInfo");
 
   const router = useRouter();
@@ -53,7 +51,6 @@ export default function SetupShopForm({ data }) {
           size="small"
           fullWidth
           color="yallo"
-          value={shopName}
           onChange={(e) => setShopName(e.target.value)}
         />
         <TextField
@@ -63,7 +60,6 @@ export default function SetupShopForm({ data }) {
           size="small"
           fullWidth
           color="yallo"
-          value={currency}
           onChange={(e) => setCurrency(e.target.value)}
         />
         <CreateFormButtonSpacer>

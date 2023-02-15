@@ -145,7 +145,7 @@ export default function CreateFeesForm({ data }) {
         </FormControl>
         <Autocomplete
           multiple
-          options={data.product}
+          options={data.product ? data.product : []}
           required
           getOptionLabel={(option) => option.code}
           filterSelectedOptions

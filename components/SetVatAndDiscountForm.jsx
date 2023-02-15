@@ -9,10 +9,8 @@ import { useLocalStorage } from "@rehooks/local-storage";
 import axios from "axios";
 import Swal from "sweetalert2";
 import CreateFormButtonSpacer from "./CreateFormButtonSpacer";
-export default function SetVatAndDiscountForm({ data }) {
+export default function SetVatAndDiscountForm() {
   const [open, setOpen] = useState(false);
-  const [vat, seVat] = useState(data ? data.vat : null);
-  const [discount, setDiscount] = useState(data ? data.discount : null);
   const [userInfo] = useLocalStorage("userInfo");
 
   const router = useRouter();
@@ -53,7 +51,6 @@ export default function SetVatAndDiscountForm({ data }) {
           size="small"
           fullWidth
           color="yallo"
-          value={vat}
           onChange={(e) => seVat(e.target.value)}
         />
         <TextField
@@ -63,7 +60,6 @@ export default function SetVatAndDiscountForm({ data }) {
           size="small"
           fullWidth
           color="yallo"
-          value={discount}
           onChange={(e) => setDiscount(e.target.value)}
         />
         <CreateFormButtonSpacer>
