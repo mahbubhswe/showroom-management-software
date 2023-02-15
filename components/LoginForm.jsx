@@ -5,6 +5,7 @@ import {
   Divider,
   IconButton,
   InputAdornment,
+  Link,
   Stack,
   TextField,
   Typography,
@@ -19,7 +20,7 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-export default function Login({ data }) {
+export default function Login() {
   const [open, setOpen] = useState(false);
   const [showHidePassword, setShowHidePassword] = React.useState(false);
   const [loginCredentials, setLoginCredential] = useState({
@@ -60,7 +61,7 @@ export default function Login({ data }) {
         variant="bold"
         sx={{ fontSize: "25px", fontWeight: 700 }}
       >
-        {data ? data.shopName : "Shop Name"}
+        Shop Name
       </Typography>
       <Divider>Please, sign in to continue</Divider>
 
@@ -122,7 +123,7 @@ export default function Login({ data }) {
           Sign In
         </Button>
       </div>
-
+      <Link href="/auth/password/reset">Forgot password?</Link>
       <Backdrop open={open}>
         <CircularProgress color="inherit" />
       </Backdrop>
