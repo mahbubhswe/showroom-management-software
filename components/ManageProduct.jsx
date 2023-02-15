@@ -73,7 +73,7 @@ export default function ManageInstalment({ data }) {
         field: "price",
         headerName: "Price",
         width: "100",
-        renderCell: (params) => `${params.row.price} ${data.currency}`,
+        renderCell: (params) => `${params.row.price} $`,
       },
       { field: "categoryName", headerName: "Category", width: "100" },
       {
