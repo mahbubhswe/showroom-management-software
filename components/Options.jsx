@@ -140,20 +140,7 @@ export default function Options() {
           <ListItemText>Set Vat & Discount</ListItemText>
         </ListItemButton>
       </ListItem>
-      <ListItem disablePadding>
-        <ListItemButton onClick={() => router.push("/dashboard/shop-setup")}>
-          <ListItemIcon>
-            <Image
-              src="/icons/shopSetup.png"
-              height={25}
-              width={25}
-              quality={100}
-              alt="icon"
-            />
-          </ListItemIcon>
-          <ListItemText>Shop Setup</ListItemText>
-        </ListItemButton>
-      </ListItem>
+   
       <ListItem disablePadding>
         <ListItemButton onClick={() => setOpen(!open)}>
           <ListItemIcon>
