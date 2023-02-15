@@ -33,9 +33,7 @@ export default function AccountOverview({ data }) {
               Total Sell
             </Typography>
             secondary=<Typography component="h4" variant="bold">
-              {`${data.totalSell ? data.totalSell : 0} ${
-                data.currency ? data.currency : " $"
-              }`}
+              {`${data ? (data.totalSell ? data.totalSell : 0) : 0}`}$
             </Typography>
           />
         </ListItem>
@@ -58,9 +56,7 @@ export default function AccountOverview({ data }) {
               Due
             </Typography>
             secondary=<Typography component="h4" variant="bold">
-              {`${data.totalDueOnSell ? data.totalDueOnSell : 0} ${
-                data.currency ? data.currency : " $"
-              }`}
+              {`${data ? (data.totalDueOnSell ? data.totalDueOnSell : 0) : 0}`}$
             </Typography>
           />
         </ListItem>
@@ -84,12 +80,15 @@ export default function AccountOverview({ data }) {
             </Typography>
             secondary=<Typography component="h4" variant="bold">
               {`${
-                data.totalWithdraw
+                data
                   ? data.totalWithdraw
-                  : 0 + data.totalUtilityCost
-                  ? data.totalUtilityCost
+                    ? data.totalWithdraw
+                    : 0 + data.totalUtilityCost
+                    ? data.totalUtilityCost
+                    : 0
                   : 0
-              } ${data.currency ? data.currency : " $"}`}
+              } `}
+              $
             </Typography>
           />
         </ListItem>
@@ -113,9 +112,7 @@ export default function AccountOverview({ data }) {
               Balance
             </Typography>
             secondary=<Typography component="h4" variant="bold">
-              {`${data.balance ? data.balance : 0} ${
-                data.currency ? data.currency : " $"
-              }`}
+              {`${data ? (data.balance ? data.balance : 0) : 0}`} $
             </Typography>
           />
         </ListItem>
