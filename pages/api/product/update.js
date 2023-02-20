@@ -1,12 +1,11 @@
 import nc from "next-connect";
 import { prisma } from "../../../utils/db.ts";
 const handler = nc();
-
 handler.put(async (req, res) => {
   try {
     await prisma.Product.update({
       where: {
-        id: req.body.id,
+        id: req.query.id,
       },
       data: req.body,
     });

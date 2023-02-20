@@ -7,13 +7,11 @@ handler.get(async (req, res) => {
       select: {
         vat: true,
         discount: true,
-        currency: true,
       },
     });
     const product = await prisma.Product.findMany();
     res.send({
       product,
-      currency: Showroom.currency,
       vat: Showroom.vat,
       discount: Showroom.discount,
     });

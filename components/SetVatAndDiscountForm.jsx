@@ -12,12 +12,14 @@ import CreateFormButtonSpacer from "./CreateFormButtonSpacer";
 export default function SetVatAndDiscountForm() {
   const [open, setOpen] = useState(false);
   const [userInfo] = useLocalStorage("userInfo");
+  const [vat, setVat] = useState(false);
+  const [discount, setDiscount] = useState(false);
 
   const router = useRouter();
   const handelSubmit = async (e) => {
     e.preventDefault();
     setOpen(true);
-    const { data } = await axios.put(
+    const { data } = await axios.post(
       `/api/setVatAndDiscount/update`,
       {
         vat,
@@ -51,7 +53,7 @@ export default function SetVatAndDiscountForm() {
           size="small"
           fullWidth
           color="yallo"
-          onChange={(e) => seVat(e.target.value)}
+          onChange={(e) => setVat(e.target.value)}
         />
         <TextField
           label="Discount"

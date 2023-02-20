@@ -15,13 +15,13 @@ import ShowDataGrid from "./ShowDataGrid";
 import { Backdrop, CircularProgress } from "@mui/material";
 export default function ManageInstalment({ data }) {
   const [open, setOpen] = React.useState(false);
-  const [customer, setCustomer] = React.useState(data.sellOnDue);
+  const [customer, setCustomer] = React.useState(data);
   const router = useRouter();
   async function recordFilteringFun(phone) {
     if (phone == "") {
-      setCustomer(data.sellOnDue);
+      setCustomer(data);
     } else {
-      setCustomer(data.sellOnDue.filter((item) => item.customerPhone == phone));
+      setCustomer(data.filter((item) => item.customerPhone == phone));
     }
   }
   //record deleting function

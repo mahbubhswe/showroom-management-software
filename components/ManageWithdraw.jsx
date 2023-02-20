@@ -6,13 +6,13 @@ import { useRouter } from "next/router";
 import moment from "moment";
 import ShowDataGrid from "./ShowDataGrid";
 export default function ManageGroup({ data }) {
-  const [withdraw, setWithdraw] = React.useState(data.withdraw);
+  const [withdraw, setWithdraw] = React.useState(data);
   const router = useRouter();
   async function recordFilteringFun(amount) {
     if (amount == "") {
-      setWithdraw(data.withdraw);
+      setWithdraw(data);
     } else {
-      setWithdraw(data.withdraw.filter((item) => item.amount == amount));
+      setWithdraw(data.filter((item) => item.amount == amount));
     }
   }
   //create columns for data grid

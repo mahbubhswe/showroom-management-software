@@ -44,7 +44,7 @@ export default function CreateFeesForm({ data }) {
   const [product, setProduct] = React.useState([]);
   const [userInfo] = useLocalStorage("userInfo");
   const router = useRouter();
-
+  console.log(data);
   //create class fees or instalment
   const handelSubmit = async (e) => {
     e.preventDefault();

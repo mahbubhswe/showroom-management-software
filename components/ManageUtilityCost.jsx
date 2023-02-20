@@ -16,15 +16,13 @@ import moment from "moment";
 import ShowDataGrid from "./ShowDataGrid";
 export default function ManageGroup({ data }) {
   const [open, setOpen] = React.useState(false);
-  const [utilityCost, setUtilityCost] = React.useState(data.utilityCost);
+  const [utilityCost, setUtilityCost] = React.useState(data);
   const router = useRouter();
   async function recordFilteringFun(costTitle) {
     if (costTitle == "") {
-      setUtilityCost(data.utilityCost);
+      setUtilityCost(data);
     } else {
-      setUtilityCost(
-        data.utilityCost.filter((item) => item.costTitle == costTitle)
-      );
+      setUtilityCost(data.filter((item) => item.costTitle == costTitle));
     }
   }
 

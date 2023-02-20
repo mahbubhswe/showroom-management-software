@@ -9,8 +9,6 @@ datasource db {
 
 model Showroom {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
-  shopName String @default("MyShop")
-  currency String @default("Set Currency")
   vat     Int @default(0)
   discount Int @default(0)
 }

@@ -1,6 +1,5 @@
 import {
   Button,
-  Paper,
   Stack,
   TextField,
   Typography,
@@ -17,13 +16,9 @@ import { prouctFormValidation } from "../utils/formValidation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
-import { useLocalStorage } from "@rehooks/local-storage";
-
 export default function UpdateProductForm({ product, data }) {
   const [open, setOpen] = useState(false);
   const [photo, setPhoto] = useState(product.photo);
-      const [userInfo] = useLocalStorage("userInfo");
-
   const router = useRouter();
   const {
     register,
@@ -31,7 +26,6 @@ export default function UpdateProductForm({ product, data }) {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      id: product.id,
       productName: product.productName,
       brand: product.brand,
       code: product.code,
@@ -53,17 +47,18 @@ export default function UpdateProductForm({ product, data }) {
         try {
           setOpen(true);
           data.photo = photo;
-          const apiRes = await axios.put(`/api/product/update`, data, {
-            headers: {
-              authorization: `Bearer ${userInfo.token}`,
-            },
-          });
+          const apiRes = await axios.put(
+            `/api/product/update?id=${product.id}`,
+            data
+          );
           setOpen(false);
           if (apiRes.data == "Product updated successfully") {
             router.push("/dashboard/product");
             Swal.fire("Success", apiRes.data, "success").then((result) => {
               router.reload(window.location.reload);
             });
+          } else {
+            Swal.fire("Error", apiRes.data, "error");
           }
         } catch (error) {
           Swal.fire("Warning", apiRes.data, "warning");
@@ -129,11 +124,11 @@ export default function UpdateProductForm({ product, data }) {
             helperText={errors?.productName ? errors.productName.message : null}
           />
           <TextField
-            label="Prouct's Brand"
+            label="Product's Brand"
             type="text"
             fullWidth
             required
-            placeholder="Enter prouct brand"
+            placeholder="Enter prdouct brand"
             size="small"
             color="yallo"
             {...register("brand")}
@@ -159,7 +154,6 @@ export default function UpdateProductForm({ product, data }) {
             helperText={errors?.price ? errors.price.message : null}
           />
         </Stack>
-
         <Avatar alt="Check avater" src={photo} sx={{ width: 80, height: 80 }} />
         <Typography>Select product photo</Typography>
         <FileBase64 onDone={(data) => setPhoto(data.base64)} />

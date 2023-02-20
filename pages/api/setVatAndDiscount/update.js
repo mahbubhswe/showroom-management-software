@@ -1,12 +1,13 @@
 import nc from "next-connect";
 import { prisma } from "../../../utils/db.ts";
 const handler = nc();
-handler.put(async (req, res) => {
+handler.post(async (req, res) => {
   try {
-    await prisma.Showroom.updateMany({
+    await prisma.Showroom.deleteMany({});
+    await prisma.Showroom.create({
       data: {
         vat: Number(req.body.vat),
-        discount: Number(req.body.discount)
+        discount: Number(req.body.discount),
       },
     });
     res.send("Vat and discount saved successfully");

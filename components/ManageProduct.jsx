@@ -14,13 +14,13 @@ import ShowDataGrid from "./ShowDataGrid";
 import { Avatar, Backdrop, CircularProgress } from "@mui/material";
 export default function ManageInstalment({ data }) {
   const [open, setOpen] = React.useState(false);
-  const [product, setProduct] = React.useState(data.product);
+  const [product, setProduct] = React.useState(data);
   const router = useRouter();
   async function recordFilteringFun(code) {
     if (code == "") {
       setProduct(code);
     } else {
-      setProduct(data.product.filter((item) => item.code == code));
+      setProduct(data.filter((item) => item.code == code));
     }
   }
   //record deleting function

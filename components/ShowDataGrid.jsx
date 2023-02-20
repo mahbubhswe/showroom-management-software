@@ -5,8 +5,8 @@ export default function ShowDataGrid({ rows, columns }) {
   return (
     <div style={{ height: 400, width: "100%", marginTop: "20px" }}>
       <DataGrid
-        rows={rows ? rows : []}
-        columns={columns ? columns : []}
+        rows={rows}
+        columns={columns}
         getRowId={(row) => row.id}
         pageSize={5}
         rowsPerPageOptions={[5]}
