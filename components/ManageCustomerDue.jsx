@@ -62,7 +62,7 @@ export default function ManageInstalment({ data }) {
         field: "amount",
         headerName: "Amount",
         width: "100",
-        renderCell: (params) => `${params.row.amount} ${data.currency}`,
+        renderCell: (params) => `${params.row.amount} $`,
       },
       {
         field: "createdAt",

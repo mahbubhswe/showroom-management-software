@@ -16,7 +16,7 @@ export default function CreateUtilityForm() {
   const [amount, setAmount] = useState();
   const [amountInputError, setAmountInputError] = useState();
   const [titleInputError, setTitleInputError] = useState();
-      const [userInfo] = useLocalStorage("userInfo");
+  const [userInfo] = useLocalStorage("userInfo");
 
   const router = useRouter();
   const handelSubmit = async (e) => {
@@ -63,7 +63,7 @@ export default function CreateUtilityForm() {
           helperText={titleInputError && titleInputError}
           onChange={(e) => {
             const newValue = e.target.value;
-            if (newValue.match(/^(\d*[a-zA-Z0-9]\d*){3,}$/)) {
+            if (newValue.match(/^[ A-Za-z0-9-]*$/)) {
               setTitleInputError();
               setCostTitle(e.target.value);
             } else {

@@ -62,7 +62,7 @@ export default function ManageGroup({ data }) {
         field: "amount",
         headerName: "Amount",
         width: "200",
-        renderCell: (params) => `${params.row.amount} ${data.currency}`,
+        renderCell: (params) => `${params.row.amount} $`,
       },
       {
         field: "createdAt",
