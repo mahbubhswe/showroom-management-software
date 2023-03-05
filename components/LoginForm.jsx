@@ -61,7 +61,7 @@ export default function Login() {
         variant="bold"
         sx={{ fontSize: "25px", fontWeight: 700 }}
       >
-        Shop Name
+        Digital Showroom
       </Typography>
       <Divider>Please, sign in to continue</Divider>
 
