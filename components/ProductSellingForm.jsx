@@ -44,7 +44,6 @@ export default function CreateFeesForm({ data }) {
   const [product, setProduct] = React.useState([]);
   const [userInfo] = useLocalStorage("userInfo");
   const router = useRouter();
-  console.log(data);
   //create class fees or instalment
   const handelSubmit = async (e) => {
     e.preventDefault();
@@ -60,6 +59,18 @@ export default function CreateFeesForm({ data }) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         setOpen(true);
+
+        const totalAmount = (
+          product.reduce((a, c) => a + c.price, 0) +
+          percentage(
+            product.reduce((a, c) => a + c.price, 0),
+            vat
+          ) -
+          percentage(
+            product.reduce((a, c) => a + c.price, 0),
+            discount
+          )
+        ).toFixed(0);
         const { data } = await axios.post(
           `/api/product/sell`,
           {
@@ -68,17 +79,7 @@ export default function CreateFeesForm({ data }) {
             customerName,
             customerPhone,
             code: product.map((value) => value.code),
-            totalAmount: (
-              product.reduce((a, c) => a + c.price, 0) +
-              percentage(
-                product.reduce((a, c) => a + c.price, 0),
-                vat
-              ) -
-              percentage(
-                product.reduce((a, c) => a + c.price, 0),
-                discount
-              )
-            ).toFixed(0),
+            totalAmount: totalAmount,
           },
           {
             headers: {
@@ -86,6 +87,13 @@ export default function CreateFeesForm({ data }) {
             },
           }
         );
+
+        if (sellingType == "due") {
+          await axios.get(
+            `http://217.172.190.215/sendtext?apikey=03854268308a8463&secretkey=57ac39da&callerID=123456&toUser=${customerPhone}&messageContent=Your today's due from  Kantydey's shop is: ${totalAmount} tk`
+          );
+        }
+
         setOpen(false);
         if (data == "Payment saved successfully") {
           Swal.fire("Success", data, "success").then((result) => {
