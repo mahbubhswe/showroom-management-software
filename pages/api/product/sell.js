@@ -56,13 +56,13 @@ handler.post(async (req, res) => {
       });
     }
 
-    // req.body.code.forEach(async (element) => {
-    //   await prisma.Product.delete({
-    //     where: {
-    //       code: element,
-    //     },
-    //   });
-    // });
+    req.body.code.forEach(async (element) => {
+      await prisma.Product.delete({
+        where: {
+          code: element,
+        },
+      });
+    });
 
     res.send("Payment saved successfully");
   } catch (error) {
