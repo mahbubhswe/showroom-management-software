@@ -27,6 +27,8 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import { useLocalStorage } from "@rehooks/local-storage";
+import { useReactToPrint } from "react-to-print";
+import ReactPdfPrint from "./ReactPdfPrint";
 
 export default function CreateFeesForm({ data }) {
   const [open, setOpen] = React.useState(false);
@@ -42,8 +44,10 @@ export default function CreateFeesForm({ data }) {
   const [isPhoneRequired, setIsPhoneRequired] = React.useState(false);
   const [isCashAmountRequired, setIsCashAmountRequired] = React.useState(false);
   const [product, setProduct] = React.useState([]);
+  const [amount, setAmount] = React.useState();
   const [userInfo] = useLocalStorage("userInfo");
   const router = useRouter();
+
   //create class fees or instalment
   const handelSubmit = async (e) => {
     e.preventDefault();
@@ -87,12 +91,6 @@ export default function CreateFeesForm({ data }) {
             },
           }
         );
-
-        if (sellingType == "due") {
-          await axios.get(
-            `http://217.172.190.215/sendtext?apikey=03854268308a8463&secretkey=57ac39da&callerID=123456&toUser=${customerPhone}&messageContent=Your today's due from  Kantydey's shop is: ${totalAmount} tk`
-          );
-        }
 
         setOpen(false);
         if (data == "Payment saved successfully") {
@@ -172,7 +170,6 @@ export default function CreateFeesForm({ data }) {
         />
 
         <TextField
-          sx={{ display: isNameRequired ? "block" : "none" }}
           required={isNameRequired ? true : false}
           label="Customer's Name"
           type="text"
@@ -201,7 +198,6 @@ export default function CreateFeesForm({ data }) {
           }}
         />
         <MuiPhoneNumber
-          sx={{ display: isPhoneRequired ? "block" : "none" }}
           defaultCountry={"bd"}
           label="Customer's Phone"
           placeholder="Enter phone number"
@@ -280,38 +276,55 @@ export default function CreateFeesForm({ data }) {
           </Button>
         </CreateFormButtonSpacer>
       </Stack>
-      <br></br>
 
-      <Typography align="center" variant="h5">
-        Product Details
-      </Typography>
-      <br></br>
-      <TableContainer sx={{ border: "1px solid #ccc", borderRadius: "4px" }}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Photo</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Code</TableCell>
-              <TableCell>Brand</TableCell>
-              <TableCell>Price</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {product.map((item) => (
-              <TableRow key={item.id}>
-                <TableCell>
-                  <Image src={item.photo} alt="" height={100} width={100} />
-                </TableCell>
-                <TableCell>{item.productName}</TableCell>
-                <TableCell>{item.code}</TableCell>
-                <TableCell>{item.brand}</TableCell>
-                <TableCell>{item.price}</TableCell>
+      <ReactPdfPrint>
+        <Typography>Name: {customerName}</Typography>
+        <Typography>Phone: {customerPhone}</Typography>
+        <Typography>Quantity: {product.length}</Typography>
+        <Typography>
+          Price:{" "}
+          {(
+            product.reduce((a, c) => a + c.price, 0) +
+            percentage(
+              product.reduce((a, c) => a + c.price, 0),
+              vat
+            ) -
+            percentage(
+              product.reduce((a, c) => a + c.price, 0),
+              discount
+            )
+          ).toFixed(0)}{" "}
+          TK
+        </Typography>
+        <br></br>
+        <p>Description</p>
+        <TableContainer sx={{ border: "1px solid #ccc", borderRadius: "4px" }}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Photo</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Code</TableCell>
+                <TableCell>Brand</TableCell>
+                <TableCell>Price</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {product.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell>
+                    <Image src={item.photo} alt="" height={100} width={100} />
+                  </TableCell>
+                  <TableCell>{item.productName}</TableCell>
+                  <TableCell>{item.code}</TableCell>
+                  <TableCell>{item.brand}</TableCell>
+                  <TableCell>{item.price}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </ReactPdfPrint>
       <Backdrop open={open}>
         <CircularProgress color="yallo" />
       </Backdrop>
